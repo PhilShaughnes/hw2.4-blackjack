@@ -15,22 +15,22 @@ class Card
   def initialize(suit:, face:)
     @face = face
     @suit = suit
-    @value = self.class.faces.index(face) + 2
+    @value = setvalue
   end
 
   def <=>(other)
     other.is_a?(Card) ? value <=> other.value : super(other)
   end
 
-
-
   # def setvalue
-  #   self.value = case
-  #               when face.to_i > 1 then face.to_i
-  #               when face == 'J' then 11
-  #               when face == 'Q' then 12
-  #               when face == 'K' then 13
-  #               when face == 'A' then 14
-  #               end
+  #   self.class.faces.index(face) + 2
   # end
+
+  def setvalue
+    self.value = case
+                when face.to_i > 1 then face.to_i
+                when face == 'A' then 11
+                else 10
+                end
+  end
 end
