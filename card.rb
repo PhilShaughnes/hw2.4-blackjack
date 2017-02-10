@@ -7,7 +7,7 @@ class Card
   end
 
   def self.suits
-    %w(Hearts Diamonds Clubs Spades)
+    %w(♡ ♢ ♣ ♠)
   end
 
   attr_accessor :face, :value, :suit
@@ -20,6 +20,18 @@ class Card
 
   def <=>(other)
     other.is_a?(Card) ? value <=> other.value : super(other)
+  end
+
+  def +(other)
+    other.is_a?(Card) ? value + other.value : super(other)
+  end
+
+  def coerce(other)
+    [value, other]
+  end
+
+  def to_s
+    "#{face} #{suit}"
   end
 
   # def setvalue
