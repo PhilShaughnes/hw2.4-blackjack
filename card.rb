@@ -31,7 +31,7 @@ class Card
   end
 
   def to_s
-    "#{face} #{suit}"
+    "#{face}#{suit}"
   end
 
   # def setvalue
