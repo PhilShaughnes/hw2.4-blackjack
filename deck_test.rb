@@ -12,8 +12,8 @@ class DeckTest < MiniTest::Test
   end
 
   def test_13_of_each_suit
-    assert @deck.select { |c| c.suit == '♡' }.count == 13
-    assert @deck.select { |c| c.suit == '♢' }.count == 13
+    assert @deck.select { |c| c.suit == '♥' }.count == 13
+    assert @deck.select { |c| c.suit == '♦' }.count == 13
     assert @deck.select { |c| c.suit == '♠' }.count == 13
     assert @deck.select { |c| c.suit == '♣' }.count == 13
   end

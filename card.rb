@@ -1,3 +1,5 @@
+require 'tty'
+require 'pry'
 
 class Card
   include Comparable
@@ -7,15 +9,16 @@ class Card
   end
 
   def self.suits
-    %w(♡ ♢ ♣ ♠)
+    %w(♥ ♦ ♣ ♠)
   end
 
-  attr_accessor :face, :value, :suit
+  attr_accessor :face, :value, :suit, :color
 
   def initialize(suit:, face:)
     @face = face
     @suit = suit
     @value = setvalue
+    @color = Pastel.new
   end
 
   def <=>(other)
@@ -31,7 +34,11 @@ class Card
   end
 
   def to_s
-    "#{face}#{suit}"
+    #pry
+    case suit
+    when '♥', '♦' then color.red("#{face}#{suit}")
+    when '♣', '♠' then color.cyan("#{face}#{suit}")
+    end
   end
 
   # def setvalue

@@ -31,6 +31,6 @@ class CardTest < MiniTest::Test
   end
 
   def c(f)
-    Card.new(suit: 'diamonds', face: f)
+    Card.new(suit: '♦', face: f)
   end
 end

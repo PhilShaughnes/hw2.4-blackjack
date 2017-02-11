@@ -1,4 +1,5 @@
 require_relative 'deck'
+#require_relative 'player'
 require 'tty'
 require 'pry'
 
@@ -13,10 +14,10 @@ class Game
                 :p1,
                 :cpu,
                 :prompt,
-                :pastel
+                :color
 
   def initialize
-    @pastel = Pastel.new
+    @color = Pastel.new
     @deck = Deck.new
     @prompt = TTY::Prompt.new
     @p1 = []
@@ -48,8 +49,8 @@ class Game
     system 'clear'
     p1cards = p1.map { |c| "#{c}, " }
     puts p1.inject(:+)
-    puts pastel.cyan(p1cards)
-    puts "Dealer has #{cpu[0]} #{pastel.red('🂠?')}"
+    puts p1cards
+    puts "Dealer has #{cpu[0]} #{color.cyan("🂠")}#{color.red("?")}"
     prompt.select('Hit or Stay?', hit: true, stay: false)
   end
 
@@ -92,4 +93,4 @@ class Game
   end
 end
 
-#Game.new.play
+Game.new.play
