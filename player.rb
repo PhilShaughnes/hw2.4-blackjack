@@ -1,7 +1,7 @@
 require 'tty'
 require 'pry'
 
-class Player
+class Player < Array
   attr_accessor :color, :hand, :split
 
   def initialize
@@ -24,6 +24,10 @@ class Player
 
   def to_s
 
+  end
+
+  def hand
+    self[0]
   end
 
 end

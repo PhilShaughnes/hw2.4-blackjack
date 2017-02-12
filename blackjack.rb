@@ -26,10 +26,8 @@ class Game
 
   def play
     if deal
-      # user choice (show user cards/options)
-      p1 << deck.draw while p1.inject(:+) < 21 && user_choice
-      # computer draws a card if player hasn't busted and <16
-      cpu << deck.draw while p1.inject(:+) <= 21 && cpu.inject(:+) < 16
+      playerturn
+      cputurn
     else
       'Computer got BLACKJACK! you lose.'
     end
@@ -38,26 +36,39 @@ class Game
   end
 
   def deal
-    2.times do
-      p1 << deck.draw
-      cpu << deck.draw
-    end
+
+    p1 << deck.draw while p1.length < 2
+    cpu << deck.draw while cpu.length < 2
     cpu.inject(:+) != 21
+  end
+
+  def playerturn
+    # user choice (show user cards/options)
+    p1 << deck.draw while p1.inject(:+) < 21 && user_choice
+  end
+
+  def cputurn
+    # computer draws a card if player hasn't busted and <16
+    cpu << deck.draw while p1.inject(:+) <= 21 && cpu.inject(:+) < 16
   end
 
   def user_choice
     system 'clear'
-    p1cards = p1.map { |c| "#{c}, " }
-    puts p1.inject(:+)
-    puts p1cards
-    puts "Dealer has #{cpu[0]} #{color.cyan("🂠")}#{color.red("?")}"
+    #p1.map { |c| "#{c}" }
+    p1.each{|c| print c}
+    puts "total: #{p1.inject(:+)}"
+    puts "Dealer has #{cpu[0]}#{color.cyan("🂠")}#{color.red("?")}"
     prompt.select('Hit or Stay?', hit: true, stay: false)
   end
 
   def gameover
-    puts 'computer had:'
-    puts cpu
-    puts find_winner
+    system 'clear'
+    puts "computer had #{cpu.inject(:+)}:"
+    cpu.each{ |x| print x}
+    puts "\nyou had #{p1.inject(:+)}:"
+    p1.each{ |x| print x}
+    #print "\n"
+    puts "\n#{find_winner}"
   end
 
   def find_winner
@@ -92,5 +103,5 @@ class Game
     Game.new.play if prompt.yes?('Would you like a rematch?')
   end
 end
-
+#binding pry
 Game.new.play

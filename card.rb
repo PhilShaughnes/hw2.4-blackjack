@@ -1,5 +1,4 @@
 require 'tty'
-require 'pry'
 
 class Card
   include Comparable
@@ -34,10 +33,9 @@ class Card
   end
 
   def to_s
-    #pry
     case suit
-    when '♥', '♦' then color.red("#{face}#{suit}")
-    when '♣', '♠' then color.cyan("#{face}#{suit}")
+    when '♥', '♦' then "#{face}#{color.red(suit)} "
+    when '♣', '♠' then "#{color.cyan(face)}#{suit} "
     end
   end
 
