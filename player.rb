@@ -1,33 +1,44 @@
 require 'tty'
-require 'pry'
 
-class Player < Array
-  attr_accessor :color, :hand, :split
+
+class Player
+  attr_accessor :color, :split, :hands, :prompt
 
   def initialize
-    @color = pastel.new
-    @hand = []
-    @split = false
+    @color = Pastel.new
+    #@split = false
+    @prompt = TTY::Prompt.new
+    @hands = [[]]
   end
 
-  def choice
+  def choice(n = 0)
+    #system 'clear'
+    hand(n).each{ |c| print c }
+    puts "total: #{hand(n).inject(:+)}"
+    prompt.select('Hit or Stay?', hit: true, stay: false)
+  end
 
+  def split(n = 0)
+    hands[n+1] = []
+    hands[n+1] << hands[n].pop
   end
 
   def ace
 
   end
 
-  def score
-
+  def score(n = 0)
+    hand(n).inject(:+) > 21 ? 0 : hand(n).inject(:+)
   end
 
-  def to_s
-
+  def show(n = 0)
+    s ="#{score(n)}: "
+    hand(n).each{|c| s += "#{c}"}
+    s
   end
 
-  def hand
-    self[0]
+  def hand(n = 0)
+    hands[n]
   end
 
 end
