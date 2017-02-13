@@ -1,11 +1,13 @@
 require_relative 'player'
-require 'pry'
-
 
 class Dealer < Player
 
   def choice
-    hand.inject(:+) < 16
+    if hand.any?{ |c| c.face == 'A' }
+      hand.inject(:+) < 18
+    else
+      hand.inject(:+) < 16
+    end
   end
 
   def hide
@@ -13,5 +15,3 @@ class Dealer < Player
   end
 
 end
-
-#binding pry

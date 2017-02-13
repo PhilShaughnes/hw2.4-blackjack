@@ -41,7 +41,7 @@ class BlackjackTest < MiniTest::Test
 
   end
 
-  def test_draw
+  def test_drawall
     @g.cpu.hand << c(3)
     @g.cpu.hand << c(5)
     @g.cpu.hand << c(7)
@@ -51,9 +51,18 @@ class BlackjackTest < MiniTest::Test
     @g.p1.hand(1) << c(3)
     @g.p1.hand(1) << c(5)
     @g.p1.hand(1) << c(7)
-    @g.draw(@g.cpu.show)
-
+    @g.drawall(@g.cpu.show)
   end
+
+  def test_split
+    @g.cpu.hand << c(3)
+    @g.cpu.hand << c(5)
+    @g.cpu.hand << c(7)
+    @g.p1.hand << c(6)
+    @g.p1.hand << c(6)
+    #@g.play
+  end
+
 
   def c(v)
      @g.deck.find{ |c| c.value == v}

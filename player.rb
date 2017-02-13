@@ -1,20 +1,20 @@
 require 'tty'
 
-
 class Player
-  attr_accessor :color, :split, :hands, :prompt
+  attr_accessor :color, :split, :hands, :prompt, :wins, :loses, :games
 
   def initialize
     @color = Pastel.new
     #@split = false
     @prompt = TTY::Prompt.new
     @hands = [[]]
+    @wins = 0
+    @loses = 0
+    @games = 0
   end
 
   def choice(n = 0)
-    #system 'clear'
-    hand(n).each{ |c| print c }
-    puts "total: #{hand(n).inject(:+)}"
+    puts "ADVICE: #{biased_advisor}"
     prompt.select('Hit or Stay?', hit: true, stay: false)
   end
 
@@ -23,8 +23,8 @@ class Player
     hands[n+1] << hands[n].pop
   end
 
-  def ace
-
+  def total(n = 0)
+    hand(n).inject(:+)
   end
 
   def score(n = 0)
@@ -32,31 +32,17 @@ class Player
   end
 
   def show(n = 0)
-    s ="#{score(n)}: "
+    s =""
     hand(n).each{|c| s += "#{c}"}
-    s
+    s += "\ntotal:#{score(n)}"
   end
 
   def hand(n = 0)
     hands[n]
   end
 
+  def biased_advisor
+    ["HIT that!", "HHHIIIIIITTTT!", "I like that where it is.", "make me a sandwich!", "DON'T MOVE AN INCH!"].sample
+  end
+
 end
-
-
-
-# def user_choice
-#   system 'clear'
-#   p1cards = p1.map { |c| "#{c}, " }
-#   puts p1.inject(:+)
-#   puts pastel.cyan(p1cards)
-#   puts "Dealer has #{cpu[0]} #{pastel.red('🂠?')}"
-#   prompt.select('Hit or Stay?', hit: true, stay: false)
-# end
-#
-#
-# def calcscore(player)
-#   #player = (player.inject(:+) > 21 ? 0 : [player.inject(:+), player.length])
-#   player.inject(:+) > 21 ? 0 : [player.inject(:+), player.length]
-#
-# end
