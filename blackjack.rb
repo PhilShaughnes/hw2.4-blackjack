@@ -134,10 +134,10 @@ class Game
 
   def tie
     if p1.hand.length < cpu.hand.length
-      p1.wins += 1
+      p1.loses += 1
       'Computer has more cards, you lose.'
     else
-      p1.loses += 1
+      p1.wins += 1
       'You win the tie!'
     end
   end
